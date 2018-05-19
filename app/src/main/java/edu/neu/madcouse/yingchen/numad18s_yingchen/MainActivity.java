@@ -24,4 +24,14 @@ public class MainActivity extends AppCompatActivity {
         Intent intent = new Intent(this, DisplayAboutActivity.class);
         startActivity(intent);
     }
+
+    public void generateError(View view) {
+        String testLabSetting =
+                Settings.System.getString(getApplicationContext().getContentResolver(), "firebase.test.lab");
+        if ("true".equals(testLabSetting)) {
+            return;
+        } else {
+            throw new java.lang.RuntimeException("Generating Errors");
+        }
+    }
 }

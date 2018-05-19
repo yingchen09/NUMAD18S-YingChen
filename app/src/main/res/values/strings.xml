@@ -1,11 +1,12 @@
 <resources>
     <string name="app_name">NUMAD18S-YingChen</string>
     <string name="about">About</string>
-    <string name="version_string_1_0">Version 1.0</string>
-    <string name="versioncode_1">VersionCode 1</string>
+    <string name="version_string">Version 1.1</string>
+    <string name="versioncode">VersionCode 2</string>
     <string name="email">chen.ying@husky.neu.edu</string>
-    <string name="year">2nd year Master</string>
+    <string name="year">Fall2016 CS Align Student</string>
     <string name="imei">IMEI</string>
     <string name="ying_chen">Ying Chen</string>
     <string name="todo">TODO</string>
+    <string name="generate_error">Generate Error</string>
 </resources>
