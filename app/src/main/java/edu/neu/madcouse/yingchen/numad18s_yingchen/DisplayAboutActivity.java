@@ -9,6 +9,7 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.telephony.TelephonyManager;
+import android.util.Log;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -16,6 +17,7 @@ public class DisplayAboutActivity extends AppCompatActivity {
 
     public static final int PHONE_STATE_REQUEST_CODE = 101;
     public static String deviceUniqueIdentifier = null;
+    private static String TAG = "AboutActivity";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,7 +42,7 @@ public class DisplayAboutActivity extends AppCompatActivity {
             if (ActivityCompat.checkSelfPermission(this, Manifest.permission.READ_PHONE_STATE) != PackageManager.PERMISSION_GRANTED) {
                 if (ActivityCompat.shouldShowRequestPermissionRationale(this,
                         Manifest.permission.READ_PHONE_STATE)) {
-                    Toast.makeText(this,
+                    Toast.makeText(getApplicationContext(),
                             "READ_PHONE_STATE permission is needed to show IMEI/MEID",
                             Toast.LENGTH_SHORT).show();
                 }
@@ -60,12 +62,42 @@ public class DisplayAboutActivity extends AppCompatActivity {
                     && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                 getDeviceIMEI();
             } else {
-                Toast.makeText(this,
+                Toast.makeText(getApplicationContext(),
                         "Permission is not granted",
                         Toast.LENGTH_SHORT).show();
             }
         } else {
             super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         }
+    }
+
+    @Override
+    protected void onPause() {
+        Log.v(TAG, "onPause()");
+        super.onPause();
+    }
+
+    @Override
+    protected void onDestroy() {
+        Log.v(TAG, "onDestroy()");
+        super.onDestroy();
+    }
+
+    @Override
+    protected void onRestart() {
+        Log.v(TAG, "onRestart()");
+        super.onRestart();
+    }
+
+    @Override
+    protected void onStart() {
+        Log.v(TAG, "onStart()");
+        super.onStart();
+    }
+
+    @Override
+    protected void onStop() {
+        Log.v(TAG, "onStop()");
+        super.onStop();
     }
 }

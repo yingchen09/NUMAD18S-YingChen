@@ -6,8 +6,8 @@ android {
         applicationId "edu.neu.madcouse.yingchen.numad18s_yingchen"
         minSdkVersion 19
         targetSdkVersion 27
-        versionCode 2
-        versionName "1.1"
+        versionCode 3
+        versionName "3.1"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     buildTypes {

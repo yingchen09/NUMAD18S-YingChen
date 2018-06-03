@@ -1,12 +1,35 @@
 <resources>
     <string name="app_name">NUMAD18S-YingChen</string>
     <string name="about">About</string>
-    <string name="version_string">Version 1.1</string>
-    <string name="versioncode">VersionCode 2</string>
+    <string name="version_string">Version 3.1</string>
+    <string name="versioncode">VersionCode 3</string>
     <string name="email">chen.ying@husky.neu.edu</string>
     <string name="year">Fall2016 CS Align Student</string>
     <string name="imei">IMEI</string>
     <string name="ying_chen">Ying Chen</string>
     <string name="todo">TODO</string>
     <string name="generate_error">Generate Error</string>
+    <string name="dictionary">Dictionary</string>
+    <string name="word">Enter your word here</string>
+    <string name="clear">Clear</string>
+    <string name="ack">Acknowledgments</string>
+    <string name="acknowlegements">
+        <p>
+            1. The wordlist is mapped into a hashmap with the first three-letter as key, and the list of words as values.
+            Code and wordlistmap are included and stored in the assets folder.
+        </p>
+        <p>
+            Source to discuss the method from stackoverflow:
+            https://stackoverflow.com/questions/29918587/how-to-find-a-word-in-large-word-list-vocabulary-with-descent-memory-consumpti
+        </p>
+        \n\
+        <p>
+            2. Source of the beep:
+            https://commons.wikimedia.org/wiki/File:Beep-09.ogg
+        </p>
+        \n\
+        <p>
+            3. images are all taken by myself currently.
+        </p>
+    </string>
 </resources>
