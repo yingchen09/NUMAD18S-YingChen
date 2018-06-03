@@ -102,8 +102,9 @@ public class DictionaryActivity extends AppCompatActivity {
     }
 
     private boolean wordDetect(String word) {
-        String key = word.substring(0, 3);
-        if (wordlist.containsKey(key) && wordlist.get(key).contains(word)) {
+        String realword = word.toLowerCase();
+        String key = realword.substring(0, 3);
+        if (wordlist.containsKey(key) && wordlist.get(key).contains(realword)) {
             return true;
         }
         return false;
