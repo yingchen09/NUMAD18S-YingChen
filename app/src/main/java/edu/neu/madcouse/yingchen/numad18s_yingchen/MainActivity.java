@@ -43,6 +43,11 @@ public class MainActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
+    public void wordGame(View view) {
+        Intent intent = new Intent(this, WordGameActivity.class);
+        startActivity(intent);
+    }
+
     @Override
     protected void onPause() {
         Log.v(TAG, "onPause()");

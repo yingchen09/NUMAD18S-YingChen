@@ -10,6 +10,7 @@ import java.io.ObjectOutputStream;
 import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -18,6 +19,7 @@ import java.util.Map;
 public class WordList {
 
     private static Map<String,ArrayList<String>> list = new HashMap<String,ArrayList<String>>();
+    private static List<String> nineLetterWords = new ArrayList<>();
 
     public void readWord() {
         String dir = System.getProperty("user.dir");
@@ -29,6 +31,9 @@ public class WordList {
             String line;
 
             while ((line = inputFile.readLine()) != null) {
+                if (line.length() == 9) {
+                    nineLetterWords.add(line);
+                }
                 String key = line.substring(0, 3);
                 if (!list.containsKey(key)) {
                     list.put(key, new ArrayList<>());
@@ -64,26 +69,29 @@ public class WordList {
         }
     }
 
-    public static void main(String[] args) {
-        WordList wl = new WordList();
-        wl.readWord();
-        wl.writeMap();
+    public void writeNineLetterWords() {
         try{
-            FileInputStream fis = new FileInputStream("wordlistmap");
-            ObjectInputStream ois = new ObjectInputStream(fis);
+            File file = new File("allnineletterwords");
+            FileOutputStream fos=new FileOutputStream(file);
+            ObjectOutputStream oos = new ObjectOutputStream(fos);
 
-            Map<String,ArrayList<String>> map = (HashMap<String,ArrayList<String>>)ois.readObject();
-
-            ois.close();
-            fis.close();
-
-            System.out.println(map.get("zoa").toString());
+            oos.writeObject(nineLetterWords);
+            oos.flush();
+            oos.close();
+            fos.close();
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
         }
+    }
+
+
+    public static void main(String[] args) {
+        WordList wl = new WordList();
+        wl.readWord();
+        wl.writeMap();
+        wl.writeNineLetterWords();
+
     }
 }

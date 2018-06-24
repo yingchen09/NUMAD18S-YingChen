@@ -26,7 +26,12 @@
             android:parentActivityName=".MainActivity" />
         <activity
             android:name=".AcknowledgementsActivity"
-            android:parentActivityName=".DictionaryActivity"></activity>
+            android:parentActivityName=".DictionaryActivity" />
+        <!-- <activity android:name=".WordGameFragment" /> -->
+        <!-- <activity android:name=".ScrollingView"></activity> -->
+        <activity android:name=".WordGameActivity" />
+        <activity android:name=".ScroggleActivity" />
+        <activity android:name=".ScroggleTile"></activity>
     </application>
 
 </manifest>

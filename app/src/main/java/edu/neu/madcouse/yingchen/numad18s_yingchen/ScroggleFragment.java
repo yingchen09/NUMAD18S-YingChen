@@ -26,4 +26,12 @@ public class ScroggleFragment extends Fragment {
         return inflater.inflate(R.layout.fragment_scroggle, container, false);
     }
 
+
+    public void putState(String data) {
+
+    }
+
+    public String getState() {
+        return null;
+    }
 }

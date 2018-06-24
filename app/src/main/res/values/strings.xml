@@ -29,7 +29,83 @@
         </p>
         \n\
         <p>
-            3. images are all taken by myself currently.
+            3. Sources of the images:
+            background.jpg: https://www.pinterest.com/pin/365495325981571087
         </p>
     </string>
+    <string name="wordgame">Word Game</string>
+    <string name="scroggle_app_name">SCROGGLE</string>
+    <string name="scroggle_ack">Acknowledgements</string>
+    <string name="instructions">Instructions</string>
+    <string name="newgame">New Game</string>
+    <string name="ok">OK</string>
+    <string name="ins">
+        <b>Scroggle</b>
+        \n\
+        An interesting word game mainly based on age old Boggle word game where you form words
+        from the given letter in the grids.
+        \n\
+        \n\
+        <b>Scroggle Board :</b>
+        The board consists of one 3X3 Large Grid with 9 smaller grids with each smaller grid itself being 3X3 grid.
+        \n\
+        \n\
+        <b>Duration and Phases :</b>
+        Game duration is of 3 minutes and consists of two phases with each phase running for 1.5 minutes.
+        At the end of 1.5 minutes, the game automatically takes you to the next phase if you click on OK on the pop up.
+        \n\
+        \n\
+        <b>Rules</b>
+        \n\
+        <b>i.</b> In the first phase, play boggle on each of the small grids,i.e., form words consisting of 3 to 9 letters.
+        \n\
+        <b>ii.</b> So you will have 9 different words(if you have found words in all 9 grids) for your second phase.
+        \n\
+        <b>iii.</b>In the second phase, all the words formed in phase one are displayed. Now form words by picking one letter
+        from each quadrant. You can revisit the grids but not back-to-back which means that suppose the letter T is one grid,
+        letters A and P are in same grid. the word TAP cannot be formed since A and P are in the same grid.
+        \n\
+        <b>iv.</b>Points for each phase is displayed
+        \n\
+        \n\
+        <b>Scoring :</b>
+        Each correct word formed fetches you certain points. Below is the split:
+        \n\
+        \n\
+        <b>i. </b> One point each for E, A, I, O, N, R, T, L, S, U
+        \n\
+        <b>ii. </b> Two points each for D, G
+        \n\
+        <b>iii. </b> Three points each for B, C, M, P
+        \n\
+        <b>iv. </b> Four points each for F, H, V, W, Y
+        \n\
+        <b>v. </b> Five points for K
+        \n\
+        <b>vi. </b> Eight points each for J, X
+        \n\
+        <b>vii. </b> Ten points each for Q, Z
+        \n\
+        <b>viii. </b> Individual words will also fetch points depending on its length
+        \n\
+        Length-Points
+        \n\
+        3 - 6
+        \n\
+        4 - 8
+        \n\
+        5 - 10
+        \n\
+        6 - 12
+        \n\
+        7 - 14
+        \n\
+        8 - 16
+        \n\
+        9 - 25
+        \n\
+    </string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

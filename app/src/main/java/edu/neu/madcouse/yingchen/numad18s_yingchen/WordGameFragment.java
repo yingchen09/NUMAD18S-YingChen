@@ -1,11 +1,24 @@
 package edu.neu.madcouse.yingchen.numad18s_yingchen;
 
 
+import android.app.Dialog;
+import android.app.ProgressDialog;
+import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.TextView;
+
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.ObjectInputStream;
+import java.util.ArrayList;
+import java.util.List;
 
 
 /**
@@ -13,17 +26,91 @@ import android.view.ViewGroup;
  */
 public class WordGameFragment extends Fragment {
 
+    private static String TAG = "WordGameActivity";
 
-    public WordGameFragment() {
-        // Required empty public constructor
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
     }
-
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_word_game, container, false);
+        final View view = inflater.inflate(R.layout.fragment_word_game, container, false);
+        View ackButton = view.findViewById(R.id.ack);
+        ackButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                final Dialog mDialog = new Dialog(getActivity());
+                mDialog.setTitle("Acknowledgement");
+                mDialog.setContentView(R.layout.scroggle_acknowledgements);
+                mDialog.setCancelable(true);
+
+                TextView text = (TextView) mDialog.findViewById(R.id.scroggle_ack);
+                text.setText(R.string.acknowlegements);
+
+                Button ok_button = (Button) mDialog.findViewById(R.id.ok_button);
+                ok_button.setOnClickListener(new View.OnClickListener() {
+
+                    @Override
+                    public void onClick(View v) {
+                        if (mDialog != null)
+                            mDialog.dismiss();
+                    }
+                });
+                mDialog.show();
+            }
+        });
+
+        View insButton = view.findViewById(R.id.instruction);
+        insButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                final Dialog mDialog = new Dialog(getActivity());
+                mDialog.setTitle("Instructions");
+                mDialog.setContentView(R.layout.instructions);
+                mDialog.setCancelable(true);
+
+                TextView text = (TextView) mDialog.findViewById(R.id.ins);
+                text.setText(R.string.ins);
+
+                Button ok_button = (Button) mDialog.findViewById(R.id.ok_button);
+                ok_button.setOnClickListener(new View.OnClickListener() {
+
+                    @Override
+                    public void onClick(View v) {
+                        if (mDialog != null)
+                            mDialog.dismiss();
+                    }
+                });
+                mDialog.show();
+            }
+        });
+
+        View newgameButton = view.findViewById(R.id.newgame);
+        newgameButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getActivity(), ScroggleActivity.class);
+                getActivity().startActivity(intent);
+            }
+        });
+
+
+        return view;
+    }
+
+
+    @Override
+    public void onPause() {
+        Log.v(TAG, "onPause()");
+        super.onPause();
+    }
+
+    @Override
+    public void onResume() {
+        Log.v(TAG, "onResume()");
+        super.onResume();
     }
 
 }
