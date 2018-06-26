@@ -25,7 +25,8 @@
         \n\
         <p>
             2. Source of the beep:
-            https://commons.wikimedia.org/wiki/File:Beep-09.ogg
+            Dictionary beep: https://commons.wikimedia.org/wiki/File:Beep-09.ogg
+            Scroggle background music: https://stereoninjamusic.weebly.com/hq-ogg-music-2015.html
         </p>
         \n\
         <p>
@@ -108,4 +109,10 @@
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="resume">Resume</string>
+    <string name="pause">Pause</string>
+    <string name="mute">Mute</string>
+    <string name="unmute">UnMute</string>
+    <string name="time">Time:</string>
+    <string name="score">Score:</string>
 </resources>

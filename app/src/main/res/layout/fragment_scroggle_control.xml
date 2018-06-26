@@ -10,30 +10,26 @@
 
         <Button
             android:id="@+id/button_resume"
-            android:layout_width="fill_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:elevation="@dimen/elevation_low"
-            android:text="Resume" />
+            android:text="@string/resume" />
 
         <Button
             android:id="@+id/pause_button"
-            android:layout_width="fill_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:elevation="2dp"
-            android:text="Pause" />
+            android:text="@string/pause" />
         <Button
             android:id="@+id/mute"
-            android:layout_width="fill_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:elevation="2dp"
-            android:text="Mute"/>
+            android:text="@string/mute"/>
 
         <Button
             android:id="@+id/unmute"
-            android:layout_width="fill_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:elevation="@dimen/elevation_low"
-            android:text="UnMute"/>
+            android:text="@string/unmute"/>
 
         <!--<Button-->
             <!--android:id="@+id/quit_button"-->
