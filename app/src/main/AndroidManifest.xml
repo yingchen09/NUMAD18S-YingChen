@@ -33,8 +33,6 @@
         <!-- <activity android:name=".ScrollingView"></activity> -->
         <activity android:name=".WordGameActivity" />
         <activity android:name=".ScroggleActivity" />
-        <activity android:name=".ScroggleTile" />
-        <activity android:name=".ScroggleCountDownTimer"></activity>
     </application>
 
 </manifest>

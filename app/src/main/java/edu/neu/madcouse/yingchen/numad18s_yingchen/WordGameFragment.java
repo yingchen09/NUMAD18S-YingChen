@@ -2,9 +2,7 @@ package edu.neu.madcouse.yingchen.numad18s_yingchen;
 
 
 import android.app.Dialog;
-import android.app.ProgressDialog;
 import android.content.Intent;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.util.Log;
@@ -13,12 +11,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
-
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.ObjectInputStream;
-import java.util.ArrayList;
-import java.util.List;
 
 
 /**
@@ -49,7 +41,7 @@ public class WordGameFragment extends Fragment {
                 TextView text = (TextView) mDialog.findViewById(R.id.scroggle_ack);
                 text.setText(R.string.acknowlegements);
 
-                Button ok_button = (Button) mDialog.findViewById(R.id.ok_button);
+                Button ok_button = (Button) mDialog.findViewById(R.id.ok);
                 ok_button.setOnClickListener(new View.OnClickListener() {
 
                     @Override
@@ -74,7 +66,7 @@ public class WordGameFragment extends Fragment {
                 TextView text = (TextView) mDialog.findViewById(R.id.ins);
                 text.setText(R.string.ins);
 
-                Button ok_button = (Button) mDialog.findViewById(R.id.ok_button);
+                Button ok_button = (Button) mDialog.findViewById(R.id.ok);
                 ok_button.setOnClickListener(new View.OnClickListener() {
 
                     @Override

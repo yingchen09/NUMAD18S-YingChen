@@ -9,32 +9,34 @@
     xmlns:android="http://schemas.android.com/apk/res/android">
 
         <Button
-            android:id="@+id/button_resume"
-            android:layout_width="wrap_content"
+            android:id="@+id/resume"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:textColor="@color/colorWhite"
+            android:background="@color/gray_color"
             android:text="@string/resume" />
 
         <Button
-            android:id="@+id/pause_button"
-            android:layout_width="wrap_content"
+            android:id="@+id/pause"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:textColor="@color/colorWhite"
+            android:background="@color/gray_color"
             android:text="@string/pause" />
         <Button
             android:id="@+id/mute"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:textColor="@color/colorWhite"
+            android:background="@color/gray_color"
             android:text="@string/mute"/>
 
         <Button
             android:id="@+id/unmute"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:textColor="@color/colorWhite"
+            android:background="@color/gray_color"
             android:text="@string/unmute"/>
 
-        <!--<Button-->
-            <!--android:id="@+id/quit_button"-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:elevation="2dp"-->
-            <!--android:text="Quit" />-->
     </LinearLayout>

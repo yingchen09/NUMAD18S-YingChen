@@ -20,7 +20,6 @@ public class ScroggleActivity extends FragmentActivity {
     private String phase2Word;
     private TextView scoreView;
     private String gameData;
-    private MediaPlayer mediaPlayer;
     public static boolean isResume;
 
 
@@ -55,53 +54,12 @@ public class ScroggleActivity extends FragmentActivity {
 
 
     @Override
-    public void onPause() {
-        super.onPause();
-        gameFragment.mHandler.removeCallbacks(null);
-        mediaPlayer.stop();
-        mediaPlayer.reset();
-        mediaPlayer.release();
-        gameFragment.timer.cancel();
-
-        if (isResume) {
-            isResume = false;
-        }
-        String gameData = gameFragment.getState();
-        getPreferences(MODE_PRIVATE).edit().putString(PREF_RESTORE, gameData).commit();
-        Log.d("Scroggle", "state = " + gameData);
-    }
-
-    @Override
-    public void onResume() {
-        super.onResume();
-        if (!isResume) {
-            isResume = true;
-            if (gameFragment.timeRemain > 0) {
-                gameFragment.timer.start();
-            } else {
-                gameFragment.timer.start();
-            }
-        }
-        mediaPlayer = MediaPlayer.create(getApplicationContext(), R.raw.backgroundmusic);
-        mediaPlayer.setVolume(0.5f, 0.5f);
-        mediaPlayer.setLooping(true);
-        mediaPlayer.start();
-        if (phase == 1) {
-            scoreView.setText(String.valueOf(this.phase1Points));
-        } else {
-            scoreView.setText(String.valueOf(this.phase1Points + this.phase2Points));
-        }
-
-    }
-
-    @Override
     public void onBackPressed(){
         super.onBackPressed();
         gameFragment.mHandler.removeCallbacks(null);
-        mediaPlayer.stop();
-        mediaPlayer.reset();
-        mediaPlayer.release();
         gameFragment.timer.cancel();
+        gameFragment.mediaPlayer.pause();
+        isResume = false;
         finish();
     }
 
@@ -117,7 +75,7 @@ public class ScroggleActivity extends FragmentActivity {
         this.phase2Points = phase2Points;
     }
 
-    public void stopThinking() {
+    public void showScores() {
         if (phase == 1) {
             scoreView.setText(String.valueOf(this.phase1Points));
         } else {
