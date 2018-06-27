@@ -33,6 +33,13 @@
             3. Sources of the images:
             background.jpg: https://www.pinterest.com/pin/365495325981571087
         </p>
+        \n\
+        <p>
+            4. Reference sources:
+            Hello, Android, 4th Edition: https://kupdf.net/download/hello-android-4th-edition_58cfeaa5dc0d608f39c346b4_pdf
+            Android Studio User Guide: https://developer.android.com/studio/intro/
+        </p>
+
     </string>
     <string name="wordgame">Word Game</string>
     <string name="scroggle_app_name">SCROGGLE</string>
@@ -43,67 +50,55 @@
     <string name="ins">
         <b>Scroggle</b>
         \n\
-        An interesting word game mainly based on age old Boggle word game where you form words
-        from the given letter in the grids.
+        This is a very interesting word game mainly based on old Boggle word game where you form words
+        from the given letter in the grids of one 3X3 large grid and 9 3X3 smaller grids.
         \n\
+        <b>Duration and Phases:</b>
+        Total of 3 minutes with two phases.
+        Each phase runs for 1.5 minutes.
+        At the end of each phase, the game will automatically take you to the next phase.
         \n\
-        <b>Scroggle Board :</b>
-        The board consists of one 3X3 Large Grid with 9 smaller grids with each smaller grid itself being 3X3 grid.
+        <b>Operations:</b>
+        One short click on one letter if you want to pick that letter, and long click on one letter if you
+        are finishing the word form in that grid.
         \n\
+        <b>Rules:</b>
+        1. In the first phase, play boggle on each of the small grids,i.e., form a word for each smaller grid
+        consisting of 3 to 9 letters.
         \n\
-        <b>Duration and Phases :</b>
-        Game duration is of 3 minutes and consists of two phases with each phase running for 1.5 minutes.
-        At the end of 1.5 minutes, the game automatically takes you to the next phase if you click on OK on the pop up.
+        2. You will have 9 words with those letters for your second phase. In the second phase,
+        by picking one letter from each quadrant, you can form words again.
         \n\
+        3. You can revisit the grids but not select two letters in the same quadrant one after another.
         \n\
-        <b>Rules</b>
+        <b>Scoring rules:</b>
+        Different points for different letters:
         \n\
-        <b>i.</b> In the first phase, play boggle on each of the small grids,i.e., form words consisting of 3 to 9 letters.
+        1. 1 point each for E, A, I, O, N, R, T, L, S, U
         \n\
-        <b>ii.</b> So you will have 9 different words(if you have found words in all 9 grids) for your second phase.
+        2. 2 points each for D, G
         \n\
-        <b>iii.</b>In the second phase, all the words formed in phase one are displayed. Now form words by picking one letter
-        from each quadrant. You can revisit the grids but not back-to-back which means that suppose the letter T is one grid,
-        letters A and P are in same grid. the word TAP cannot be formed since A and P are in the same grid.
+        3. 3 points each for B, C, M, P
         \n\
-        <b>iv.</b>Points for each phase is displayed
+        4. 4 points each for F, H, V, W, Y
         \n\
+        5. 5 points for K
         \n\
-        <b>Scoring :</b>
-        Each correct word formed fetches you certain points. Below is the split:
+        6. 8 points each for J, X
         \n\
+        7. 10 points each for Q, Z
         \n\
-        <b>i. </b> One point each for E, A, I, O, N, R, T, L, S, U
+        The length of the words formed will also affect the points:
         \n\
-        <b>ii. </b> Two points each for D, G
+        word length: 3 - 5, points: the length of the word
         \n\
-        <b>iii. </b> Three points each for B, C, M, P
+        word length: 6, points: 10
         \n\
-        <b>iv. </b> Four points each for F, H, V, W, Y
+        word length: 7, points: 15
         \n\
-        <b>v. </b> Five points for K
+        word length: 8, points: 20
         \n\
-        <b>vi. </b> Eight points each for J, X
-        \n\
-        <b>vii. </b> Ten points each for Q, Z
-        \n\
-        <b>viii. </b> Individual words will also fetch points depending on its length
-        \n\
-        Length-Points
-        \n\
-        3 - 6
-        \n\
-        4 - 8
-        \n\
-        5 - 10
-        \n\
-        6 - 12
-        \n\
-        7 - 14
-        \n\
-        8 - 16
-        \n\
-        9 - 25
+        word length: 9, points: 25
         \n\
     </string>
 

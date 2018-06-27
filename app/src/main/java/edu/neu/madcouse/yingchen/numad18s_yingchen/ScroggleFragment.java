@@ -70,7 +70,8 @@ public class ScroggleFragment extends Fragment {
     private List<String> boardWords = new ArrayList<>();
     private Map<String,ArrayList<String>> wordlist = new HashMap<>();
     private Vibrator vibrator;
-    private String phase2Word;
+    private String phase1Word = "";
+    private String phase2Word = "";
     public MediaPlayer mediaPlayer;
     private String gameData;
     private View rootView;
@@ -96,7 +97,7 @@ public class ScroggleFragment extends Fragment {
     private int letterScore2;
     private int count = 0;
     private int[] formedWordsScores1 = {0, 0, 0, 0, 0, 0, 0, 0, 0};
-    private String word = "";
+
     public Handler mHandler = new Handler();
 
     @Override
@@ -211,11 +212,11 @@ public class ScroggleFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.large_board, container, false);
         rootView = view;
-        initViews(view);
+        initialViews(view);
         if (gameData != "" && gameData != null) {
             putState(gameData);
         } else {
-            startGame(view);
+            startGameView(view);
         }
         updateAllTiles();
 
@@ -237,7 +238,7 @@ public class ScroggleFragment extends Fragment {
         return view;
     }
 
-    private void startGame(View view) {
+    private void startGameView(View view) {
         mEntireBoard.setView(view);
         for (int large = 0; large < 9; large++) {
             View outer = view.findViewById(mLargeIds[large]);
@@ -255,7 +256,7 @@ public class ScroggleFragment extends Fragment {
         }
     }
 
-    private void initViews(View view) {
+    private void initialViews(View view) {
 
         mEntireBoard.setView(view);
 
@@ -291,6 +292,13 @@ public class ScroggleFragment extends Fragment {
                     public void onClick(View v) {
                         smallTile.animate();
                         if (phase == 1) {
+//                            if (wordLarge == mLastLarge && wordSmall == mLastSmall && isChosen(smallTile)) {
+//                                Log.d("***phase 1 onclick", "cancel set!");
+//                                smallTile.setChosen(false);
+//                                phase1Word = deleteLastChar(formedWords.get(wordLarge));
+//                                formedWords.put(wordLarge, phase1Word);
+//                                inner.setBackground(getResources().getDrawable(R.drawable.letter_background));
+//                            }
                             if (isValidMove(smallTile)) {
                                 if (!isChosen(smallTile)) {
                                     smallTile.setChosen(true);
@@ -298,9 +306,9 @@ public class ScroggleFragment extends Fragment {
                                     formWord(String.valueOf(smallTile.getLetter()), wordLarge, wordSmall);
                                 } else {
                                     smallTile.setChosen(false);
-                                    word = deleteLastChar(formedWords.get(wordLarge));
-                                    formedWords.put(wordLarge, word);
-                                    inner.setBackground(getResources().getDrawable(R.drawable.letter_available));
+                                    phase1Word = deleteLastChar(formedWords.get(wordLarge));
+                                    formedWords.put(wordLarge, phase1Word);
+                                    inner.setBackground(getResources().getDrawable(R.drawable.letter_background));
                                 }
                                 vibrator.vibrate(15);
                                 showWord();
@@ -318,6 +326,7 @@ public class ScroggleFragment extends Fragment {
                                     inner.setBackground(getResources().getDrawable(R.drawable.letter_red));
                                 } else {
                                     smallTile.setChosen(false);
+                                    inner.setBackground(getResources().getDrawable(R.drawable.letter_available));
                                 }
                                 vibrator.vibrate(15);
                                 showWord();
@@ -334,8 +343,8 @@ public class ScroggleFragment extends Fragment {
                         if (phase == 1) {
                             if (isValidMove(smallTile)) {
                                 formWord(String.valueOf(smallTile.getLetter()), wordLarge, wordSmall);
-                                if (word.length() >= 3) {
-                                    boolean wordDetected = wordDetect(word);
+                                if (phase1Word.length() >= 3) {
+                                    boolean wordDetected = wordDetect(phase1Word);
                                     if (wordDetected) {
                                         letterScore1 = 0;
                                         for (int i = 0; i < formedWords.get(mLastLarge).length(); i++) {
@@ -343,8 +352,8 @@ public class ScroggleFragment extends Fragment {
                                         }
                                         formedWordsScores1[mLastLarge] = letterScore1;
                                         isWord1[mLastLarge] = wordDetected;
-                                        formedWords.put(wordLarge, word);
-                                        word = "";
+                                        formedWords.put(wordLarge, phase1Word);
+                                        phase1Word = "";
                                         smallTile.setChosen(true);
                                         setAllNextMoves();
                                         for (int small = 0; small < 9; small++) {
@@ -373,9 +382,9 @@ public class ScroggleFragment extends Fragment {
                                             otherTile.setView(innerButton);
 
                                             if (smallIdMap1.get(wordLarge).contains(small)) {
-                                                if (otherTile.getLetter().equals(word.substring(word.length() - 1)) && (small == wordSmall)) {
-                                                    word = deleteLastChar(formedWords.get(wordLarge));
-                                                    formedWords.put(wordLarge, word);
+                                                if (otherTile.getLetter().equals(phase1Word.substring(phase1Word.length() - 1)) && (small == wordSmall)) {
+                                                    phase1Word = deleteLastChar(formedWords.get(wordLarge));
+                                                    formedWords.put(wordLarge, phase1Word);
                                                     ArrayList<Integer> list = smallIdMap1.get(wordLarge);
                                                     for (Integer i : list) {
                                                         if (i == small) {
@@ -479,14 +488,14 @@ public class ScroggleFragment extends Fragment {
 
     public void formWord(String letter, int large, int small) {
         if (large == mLastLarge) {
-            word = word.concat(letter);
+            phase1Word = phase1Word.concat(letter);
             if (formedWords != null) {
-                if (word.length() == 1) {
-                    word = formedWords.get(large).concat(word);
+                if (phase1Word.length() == 1) {
+                    phase1Word = formedWords.get(large).concat(phase1Word);
                 }
-                formedWords.put(large, word);
+                formedWords.put(large, phase1Word);
             } else {
-                formedWords.put(large, word);
+                formedWords.put(large, phase1Word);
             }
             if (smallIdMap1.get(large) == null) {
                 smallIdMap1.put(large, new ArrayList<>(Arrays.asList(small)));
@@ -495,12 +504,12 @@ public class ScroggleFragment extends Fragment {
                 smalls.add(small);
             }
         } else {
-            word = "".concat(letter);
+            phase1Word = "".concat(letter);
             if (formedWords != null && formedWords.get(large) != null) {
-                word = formedWords.get(large).concat(word);
-                formedWords.put(large, word);
+                phase1Word = formedWords.get(large).concat(phase1Word);
+                formedWords.put(large, phase1Word);
             } else {
-                formedWords.put(large, word);
+                formedWords.put(large, phase1Word);
             }
             if (smallIdMap1.get(large) == null) {
                 smallIdMap1.put(large, new ArrayList<Integer>(Arrays.asList(small)));
@@ -540,7 +549,7 @@ public class ScroggleFragment extends Fragment {
 
         TextView text = (TextView) layout.findViewById(R.id.text);
         if(phase == 1) {
-            text.setText("Word: " + word);
+            text.setText("Word: " + phase1Word);
         } else if(phase ==2 ){
             text.setText("Word: " + phase2Word);
         }
@@ -573,7 +582,7 @@ public class ScroggleFragment extends Fragment {
                     setValidNextMove1(mLastLarge, mLastSmall);
                     if (formedWords.get(mLastLarge) != null) {
                         if (formedWords.get(mLastLarge).length() >= 3) {
-                            boolean wordDetected = wordDetect(word);
+                            boolean wordDetected = wordDetect(phase1Word);
                             if (wordDetected) {
                                 display();
                             } else {
@@ -833,34 +842,6 @@ public class ScroggleFragment extends Fragment {
             builder.append(',');
         }
         return builder.toString();
-    }
-
-    private class LoadWordList extends AsyncTask<Void, Void, Void> {
-
-        @Override
-        protected Void doInBackground(Void... params) {
-
-            try {
-                InputStream inputStream = getResources().getAssets().open("wordlistmap");
-                ObjectInputStream objectInputStream = new ObjectInputStream(inputStream);
-                wordlist = (HashMap<String,ArrayList<String>>) objectInputStream.readObject();
-                objectInputStream.close();
-                Log.i("AsyncTask", String.valueOf(wordlist.size()));
-
-            } catch (IOException e) {
-                e.printStackTrace();
-            } catch (ClassNotFoundException e) {
-                e.printStackTrace();
-            }
-            return null;
-        }
-
-        protected void onProgressUpdate(Void... params) {
-        }
-
-        protected void onPostExecute(Void v) {
-        }
-
     }
 
     private void setAvailableFromLastMove(int small) {
@@ -1157,6 +1138,32 @@ public class ScroggleFragment extends Fragment {
         }
     }
 
+    private class LoadWordList extends AsyncTask<Void, Void, Void> {
 
+        @Override
+        protected Void doInBackground(Void... params) {
+
+            try {
+                InputStream inputStream = getResources().getAssets().open("wordlistmap");
+                ObjectInputStream objectInputStream = new ObjectInputStream(inputStream);
+                wordlist = (HashMap<String,ArrayList<String>>) objectInputStream.readObject();
+                objectInputStream.close();
+                Log.i("AsyncTask", String.valueOf(wordlist.size()));
+
+            } catch (IOException e) {
+                e.printStackTrace();
+            } catch (ClassNotFoundException e) {
+                e.printStackTrace();
+            }
+            return null;
+        }
+
+        protected void onProgressUpdate(Void... params) {
+        }
+
+        protected void onPostExecute(Void v) {
+        }
+
+    }
 
 }

@@ -22,7 +22,7 @@ public class ScroggleTile {
         this.isEmpty = false;
     }
 
-    public Boolean getIsEmpty(){
+    public boolean getIsEmpty(){
         return this.isEmpty;
     }
 
@@ -54,7 +54,7 @@ public class ScroggleTile {
         this.isChosen = bool;
     }
 
-    public Boolean getIsChosen(){
+    public boolean getIsChosen(){
         return isChosen;
     }
 
@@ -62,7 +62,7 @@ public class ScroggleTile {
     public void updateDrawableState() {
         if (mView == null) return;
         int level = getLevel();
-        Boolean chosen = getIsChosen();
+        boolean chosen = getIsChosen();
         if (mView.getBackground() != null) {
             if(chosen == true) {
                 mView.getBackground().setLevel(level);
@@ -91,11 +91,11 @@ public class ScroggleTile {
     }
 
     public void animate() {
-        Animator anim = AnimatorInflater.loadAnimator(gameFragment.getActivity(),
+        Animator animator = AnimatorInflater.loadAnimator(gameFragment.getActivity(),
                 R.animator.scroggle);
         if (getView() != null) {
-            anim.setTarget(getView());
-            anim.start();
+            animator.setTarget(getView());
+            animator.start();
         }
     }
     
