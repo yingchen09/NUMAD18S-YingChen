@@ -734,12 +734,19 @@ public class ScroggleFragment extends Fragment {
     public void onScroggleResume() {
         timer = new ScroggleCountDownTimer(timeRemain, INTERVAL);
         timer.start();
-        mediaPlayer = MediaPlayer.create(getActivity(), R.raw.backgroundmusic);
-        mediaPlayer.setVolume(0.5f, 0.5f);
-        mediaPlayer.setLooping(true);
-        mediaPlayer.start();
+        if (!mediaPlayer.isPlaying()) {
+            mediaPlayer.start();
+        }
         ((ScroggleActivity) getActivity()).gameFragment.getView().setVisibility(View.VISIBLE);
         isResume = true;
+    }
+
+    public void mute() {
+        if (mediaPlayer.isPlaying()) {
+            mediaPlayer.pause();
+        } else {
+            mediaPlayer.start();
+        }
     }
 
     private void calPhase1Points() {
@@ -807,14 +814,6 @@ public class ScroggleFragment extends Fragment {
         }
         int total = pointsForLength+ letterScore2;
         mPhase2Points += total;
-    }
-
-    public void mute() {
-        if (mediaPlayer.isPlaying()) {
-            mediaPlayer.pause();
-        } else {
-            mediaPlayer.start();
-        }
     }
 
     public String getState() {

@@ -1,8 +1,8 @@
 <resources>
     <string name="app_name">NUMAD18S-YingChen</string>
     <string name="about">About</string>
-    <string name="version_string">Version 3.1</string>
-    <string name="versioncode">VersionCode 3</string>
+    <string name="version_string">Version 4.1</string>
+    <string name="versioncode">VersionCode 4</string>
     <string name="email">chen.ying@husky.neu.edu</string>
     <string name="year">Fall2016 CS Align Student</string>
     <string name="imei">IMEI</string>
@@ -24,7 +24,7 @@
         </p>
         \n\
         <p>
-            2. Source of the beep:
+            2. Sources of the sound and music:
             Dictionary beep: https://commons.wikimedia.org/wiki/File:Beep-09.ogg
             Scroggle background music: https://stereoninjamusic.weebly.com/hq-ogg-music-2015.html
         </p>
