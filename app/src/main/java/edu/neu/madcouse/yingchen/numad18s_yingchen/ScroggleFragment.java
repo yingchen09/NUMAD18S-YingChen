@@ -212,7 +212,7 @@ public class ScroggleFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.large_board, container, false);
         rootView = view;
-        initialViews(view);
+        createViews(view);
         if (gameData != "" && gameData != null) {
             putState(gameData);
         } else {
@@ -256,7 +256,7 @@ public class ScroggleFragment extends Fragment {
         }
     }
 
-    private void initialViews(View view) {
+    private void createViews(View view) {
 
         mEntireBoard.setView(view);
 
@@ -292,13 +292,6 @@ public class ScroggleFragment extends Fragment {
                     public void onClick(View v) {
                         smallTile.animate();
                         if (phase == 1) {
-//                            if (wordLarge == mLastLarge && wordSmall == mLastSmall && isChosen(smallTile)) {
-//                                Log.d("***phase 1 onclick", "cancel set!");
-//                                smallTile.setChosen(false);
-//                                phase1Word = deleteLastChar(formedWords.get(wordLarge));
-//                                formedWords.put(wordLarge, phase1Word);
-//                                inner.setBackground(getResources().getDrawable(R.drawable.letter_background));
-//                            }
                             if (isValidMove(smallTile)) {
                                 if (!isChosen(smallTile)) {
                                     smallTile.setChosen(true);
@@ -353,6 +346,7 @@ public class ScroggleFragment extends Fragment {
                                         formedWordsScores1[mLastLarge] = letterScore1;
                                         isWord1[mLastLarge] = wordDetected;
                                         formedWords.put(wordLarge, phase1Word);
+                                        displayWord();
                                         phase1Word = "";
                                         smallTile.setChosen(true);
                                         setAllNextMoves();
@@ -419,6 +413,7 @@ public class ScroggleFragment extends Fragment {
                                         if (wordDetected) {
                                             phase2Words[count] = phase2Word;
                                             isWord2[mLastLarge] = wordDetected;
+                                            displayWord();
                                             phase2Word = "";
                                             for (int l = 0; l < 9; l++) {
                                                 for (int s = 0; s < 9; s++) {
@@ -542,7 +537,7 @@ public class ScroggleFragment extends Fragment {
 
 
 
-    public void display() {
+    public void displayWord() {
         LayoutInflater inflater = getActivity().getLayoutInflater();
         View layout = inflater.inflate(R.layout.mytoast,
                 (ViewGroup) getView().findViewById(R.id.container));
@@ -572,7 +567,7 @@ public class ScroggleFragment extends Fragment {
                         if (!Arrays.asList(phase2Words).contains(phase2Word)) {
                             boolean wordDetected = wordDetect(phase2Word);
                             if (wordDetected) {
-                                display();
+                                displayWord();
                                 isWord2[mLastLarge] = wordDetected;
                             }
                         }
@@ -584,7 +579,7 @@ public class ScroggleFragment extends Fragment {
                         if (formedWords.get(mLastLarge).length() >= 3) {
                             boolean wordDetected = wordDetect(phase1Word);
                             if (wordDetected) {
-                                display();
+                                displayWord();
                             } else {
                                 formedWordsScores1[mLastLarge] = 0;
                             }
