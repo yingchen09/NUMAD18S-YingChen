@@ -390,6 +390,7 @@ public class ScroggleFragment extends Fragment {
                                                     innerButton.setTextColor(getResources().getColor(R.color.black_color));
                                                 }
 
+
                                             }
 
                                         }
