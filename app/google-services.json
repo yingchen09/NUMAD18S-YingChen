@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "884549676730",
+    "firebase_url": "https://numad18s-yingchen.firebaseio.com",
+    "project_id": "numad18s-yingchen",
+    "storage_bucket": "numad18s-yingchen.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:884549676730:android:36f1be2000de2472",
+        "android_client_info": {
+          "package_name": "edu.neu.madcouse.yingchen.numad18s_yingchen"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "884549676730-b684nkhk5r3tdhrvelnf4k4dtfi4li30.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB-mC8LZz2VX0e6WZC288qdID69Wyz4OVQ"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
