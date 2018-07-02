@@ -3,7 +3,6 @@
     package="edu.neu.madcouse.yingchen.numad18s_yingchen">
 
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
-
     <uses-permission android:name="android.permission.VIBRATE" />
 
     <application
@@ -29,10 +28,23 @@
         <activity
             android:name=".AcknowledgementsActivity"
             android:parentActivityName=".DictionaryActivity" />
-        <!-- <activity android:name=".WordGameFragment" /> -->
-        <!-- <activity android:name=".ScrollingView"></activity> -->
         <activity android:name=".WordGameActivity" />
         <activity android:name=".ScroggleActivity" />
+
+        <service android:name=".WordGameMessagingService">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
+            </intent-filter>
+        </service>
+        <service android:name=".WordGameInstanceIDService">
+            <intent-filter>
+                <action android:name="com.google.firebase.INSTANCE_ID_EVENT" />
+            </intent-filter>
+        </service>
+
+        <activity android:name=".ScroggleRegisterActivity" />
+        <activity android:name=".LeaderBoardActivity" />
+        <activity android:name=".ScoreBoardActivity"></activity>
     </application>
 
 </manifest>

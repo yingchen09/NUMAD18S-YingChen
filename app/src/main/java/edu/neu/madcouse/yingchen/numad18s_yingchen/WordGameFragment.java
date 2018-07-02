@@ -88,6 +88,16 @@ public class WordGameFragment extends Fragment {
             }
         });
 
+        View registerButton = view.findViewById(R.id.register);
+        registerButton.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), ScroggleRegisterActivity.class);
+                getActivity().startActivity(intent);
+            }
+        });
+
 
         return view;
     }

@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools">
+<LinearLayout
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/background"
@@ -17,6 +20,17 @@
         android:textSize="@dimen/menu_text_size"/>
 
     <Button
+        android:id="@+id/register"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_margin="@dimen/menu_button_margin"
+        android:padding="@dimen/menu_button_padding"
+        android:text="@string/register"
+        android:textColor="@color/colorWhite"
+        android:background="@color/gray_color"/>
+
+    <Button
         android:id="@+id/newgame"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
@@ -24,6 +38,28 @@
         android:layout_margin="@dimen/menu_button_margin"
         android:padding="@dimen/menu_button_padding"
         android:text="@string/newgame"
+        android:textColor="@color/colorWhite"
+        android:background="@color/gray_color"/>
+
+    <Button
+        android:id="@+id/scoreboard"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_margin="@dimen/menu_button_margin"
+        android:padding="@dimen/menu_button_padding"
+        android:text="@string/scoreboard"
+        android:textColor="@color/colorWhite"
+        android:background="@color/gray_color"/>
+
+    <Button
+        android:id="@+id/leaderboard"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_margin="@dimen/menu_button_margin"
+        android:padding="@dimen/menu_button_padding"
+        android:text="@string/leaderboard"
         android:textColor="@color/colorWhite"
         android:background="@color/gray_color"/>
 
@@ -48,3 +84,4 @@
         android:background="@color/gray_color"/>
 
 </LinearLayout>
+</ScrollView>
