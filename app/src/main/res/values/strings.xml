@@ -116,5 +116,7 @@
     <string name="username_hint">Please enter your username</string>
     <string name="date">Play Time</string>
     <string name="order">Order</string>
-    <string name="highest">Highest Score!</string>
+    <string name="highest">Highest!</string>
+    <string name="username">User</string>
+    <string name="congrats">Congrats!</string>
 </resources>
