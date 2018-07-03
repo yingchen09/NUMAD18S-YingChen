@@ -98,6 +98,25 @@ public class WordGameFragment extends Fragment {
             }
         });
 
+        View scoreBoard = view.findViewById(R.id.scoreboard);
+        scoreBoard.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), ScoreBoardActivity.class);
+                getActivity().startActivity(intent);
+            }
+        });
+
+        View leaderBoard = view.findViewById(R.id.leaderboard);
+        leaderBoard.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), LeaderBoardActivity.class);
+                getActivity().startActivity(intent);
+            }
+        });
 
         return view;
     }
