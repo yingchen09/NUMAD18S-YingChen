@@ -13,14 +13,16 @@ public class User {
     public String token;
     public Map<String, Game> games;
 
+    public User() {
+    }
 
     public User(String username, String score, String token){
         this.username = username;
         this.topscore = score;
-        this.datePlayed = new SimpleDateFormat("yyyy.MM.dd.HH.mm.ss", Locale.US).format(new Date());
+        this.datePlayed = new SimpleDateFormat("yyyy.MM.dd", Locale.US).format(new Date());
         this.token = token;
         games = new HashMap<>();
-        Game game = new Game(score, datePlayed);
+        Game game = new Game(score);
         games.put("game0", game);
     }
 
