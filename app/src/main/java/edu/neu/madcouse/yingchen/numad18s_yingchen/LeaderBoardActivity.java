@@ -47,6 +47,8 @@ public class LeaderBoardActivity extends AppCompatActivity {
     private Map<Integer, TextView[]> texts = new HashMap<>();
     private Map<Integer, Button> buttons = new HashMap<>();
 
+    public static List<User> topUsers = new ArrayList<>();
+
     private static final String TAG = LeaderBoardActivity.class.getSimpleName();
 
     private static final String SERVER_KEY = "key=AAAAzfNE7ro:APA91bF2FxRBR0XKv_Z1IaencnXQ-yHayNii_HNnTmj2wBjpg_y5PoE6IlZfHJXeaQH9PczVuucqfVEo7Dcx0R2iLx6PaS5W1Lv47bZ2SQbFZnuHoTjEdAWIHxMnvFPC47ACmQqbb32s";
@@ -170,6 +172,7 @@ public class LeaderBoardActivity extends AppCompatActivity {
                         }});
                     int size = allUsers.size();
                     int j = 0;
+                    topUsers.clear();
                     while(j < 10 && j < size) {
                         int index = j + 1;
                         final String tagetToken = allUsers.get(j).token;
@@ -182,10 +185,10 @@ public class LeaderBoardActivity extends AppCompatActivity {
                                 }
                             });
                         }
-
                         texts.get(index)[0].setText(allUsers.get(j).username);
                         texts.get(index)[1].setText(allUsers.get(j).topscore);
                         texts.get(index)[2].setText(allUsers.get(j).datePlayed);
+                        topUsers.add(allUsers.get(j));
                         j++;
                     }
                 }
@@ -216,7 +219,7 @@ public class LeaderBoardActivity extends AppCompatActivity {
         JSONObject jNotification = new JSONObject();
         try {
             jNotification.put("title", "Scroggle");
-            jNotification.put("body", "Congrats to your high score!");
+            jNotification.put("body", "One user congrats to your high score!");
             jNotification.put("sound", "default");
             jNotification.put("badge", "1");
             /*

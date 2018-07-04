@@ -9,6 +9,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.os.Handler;
+import android.os.Looper;
 import android.os.Vibrator;
 import android.support.v4.app.Fragment;
 import android.util.Log;
@@ -22,9 +23,24 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.MutableData;
+import com.google.firebase.database.Transaction;
+import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.iid.FirebaseInstanceId;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.ObjectInputStream;
+import java.io.OutputStream;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -32,8 +48,12 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
+import java.util.Scanner;
 import java.util.Set;
 import java.util.concurrent.TimeUnit;
+
+import edu.neu.madcouse.yingchen.numad18s_yingchen.models.Game;
+import edu.neu.madcouse.yingchen.numad18s_yingchen.models.User;
 
 
 /**
@@ -100,10 +120,22 @@ public class ScroggleFragment extends Fragment {
 
     public Handler mHandler = new Handler();
 
+    private String token;
+    private DatabaseReference mDatabase;
+    private List<User> topUsers = new ArrayList<>();
+
+    private static final String TAG = ScroggleFragment.class.getSimpleName();
+
+    private static final String SERVER_KEY = "key=AAAAzfNE7ro:APA91bF2FxRBR0XKv_Z1IaencnXQ-yHayNii_HNnTmj2wBjpg_y5PoE6IlZfHJXeaQH9PczVuucqfVEo7Dcx0R2iLx6PaS5W1Lv47bZ2SQbFZnuHoTjEdAWIHxMnvFPC47ACmQqbb32s";
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setRetainInstance(true);
+
+        token = FirebaseInstanceId.getInstance().getToken();
+        mDatabase = FirebaseDatabase.getInstance().getReference();
+        topUsers = LeaderBoardActivity.topUsers;
 
         if (wordlist.isEmpty()) {
             new LoadWordList().execute();
@@ -129,6 +161,66 @@ public class ScroggleFragment extends Fragment {
         mediaPlayer.setVolume(0.5f, 0.5f);
         mediaPlayer.setLooping(true);
         mediaPlayer.start();
+    }
+
+
+    public void sendMessageToScroggle() {
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                sendMessage();
+            }
+        }).start();
+    }
+
+    private void sendMessage(){
+        JSONObject jPayload = new JSONObject();
+        JSONObject jNotification = new JSONObject();
+        try {
+            jNotification.put("message", "This is a message from Scroggle!");
+            jNotification.put("body", "One user is on the top!");
+            jNotification.put("sound", "default");
+            jNotification.put("badge", "1");
+            jNotification.put("click_action", "OPEN_ACTIVITY_1");
+
+            // Populate the Payload object.
+            // Note that "to" is a topic, not a token representing an app instance
+            jPayload.put("to", "/topics/Scroggle");
+            jPayload.put("priority", "high");
+            jPayload.put("notification", jNotification);
+
+            // Open the HTTP connection and send the payload
+            URL url = new URL("https://fcm.googleapis.com/fcm/send");
+            HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+            conn.setRequestMethod("POST");
+            conn.setRequestProperty("Authorization", SERVER_KEY);
+            conn.setRequestProperty("Content-Type", "application/json");
+            conn.setDoOutput(true);
+
+            // Send FCM message content.
+            OutputStream outputStream = conn.getOutputStream();
+            outputStream.write(jPayload.toString().getBytes());
+            outputStream.close();
+
+            // Read FCM response.
+            InputStream inputStream = conn.getInputStream();
+            final String resp = convertStreamToString(inputStream);
+
+            Handler h = new Handler(Looper.getMainLooper());
+            h.post(new Runnable() {
+                @Override
+                public void run() {
+                    Log.e(TAG, "run: " + resp);
+                }
+            });
+        } catch (JSONException | IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private String convertStreamToString(InputStream is) {
+        Scanner s = new Scanner(is).useDelimiter("\\A");
+        return s.hasNext() ? s.next().replace(",", ",\n") : "";
     }
 
     private void loadBoardWords() {
@@ -1098,13 +1190,43 @@ public class ScroggleFragment extends Fragment {
                 mDialog.setCancelable(false);
 
                 TextView textView = (TextView) mDialog.findViewById(R.id.alert);
-                int total = mPhase1Points + mPhase2Points;
+                final int total = mPhase1Points + mPhase2Points;
                 textView.setText("Game Over\nYour Total Score: " + total);
 
                 Button ok_button = (Button) mDialog.findViewById(R.id.ok);
                 ok_button.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
+                        String score = String.valueOf(total);
+                        final Game game = new Game(score);
+                        DatabaseReference tokenRef = mDatabase.child("users").child(token);
+
+                        ValueEventListener eventListener = new ValueEventListener() {
+                            @Override
+                            public void onDataChange(DataSnapshot dataSnapshot) {
+                                if (dataSnapshot.exists()) {
+                                    User user = dataSnapshot.getValue(User.class);
+                                    user.addGame(game);
+                                    mDatabase.child("users").child(token).setValue(user);
+                                    String tScore = user.topscore;
+
+                                    if (topUsers.isEmpty() || topUsers.size() < 10) {
+                                        sendMessageToScroggle();
+                                    } else {
+                                        User u = topUsers.get(topUsers.size() - 1);
+                                        String s = u.topscore;
+                                        if (Integer.valueOf(tScore) > Integer.valueOf(s)) {
+                                            sendMessageToScroggle();
+                                        }
+                                    }
+
+                                }
+                            }
+                            @Override
+                            public void onCancelled(DatabaseError databaseError) {}
+                        };
+                        tokenRef.addListenerForSingleValueEvent(eventListener);
+
                         mediaPlayer.pause();
                         getActivity().finish();
                     }
