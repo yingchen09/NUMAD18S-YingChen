@@ -1,8 +1,8 @@
 <resources>
     <string name="app_name">NUMAD18S-YingChen</string>
     <string name="about">About</string>
-    <string name="version_string">Version 4.1</string>
-    <string name="versioncode">VersionCode 4</string>
+    <string name="version_string">Version 6.1</string>
+    <string name="versioncode">VersionCode 6</string>
     <string name="email">chen.ying@husky.neu.edu</string>
     <string name="year">Fall2016 CS Align Student</string>
     <string name="imei">IMEI</string>
