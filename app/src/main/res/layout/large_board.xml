@@ -21,6 +21,22 @@
             android:layout_height="wrap_content"
             android:layout_width="wrap_content"
             android:layout_marginBottom="10dp"/>
+
+        <TextView
+            android:id="@+id/points"
+            android:text="@string/points"
+            android:paddingLeft="10dip"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:layout_marginBottom="10dp"/>
+
+        <!--<Button-->
+            <!--android:id="@+id/submit"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:background="@color/gray_color"-->
+            <!--android:text="@string/submit"-->
+            <!--android:textColor="@color/colorWhite" />-->
     </TableRow>
 <GridLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"

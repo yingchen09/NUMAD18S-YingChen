@@ -27,8 +27,6 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.MutableData;
-import com.google.firebase.database.Transaction;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.iid.FirebaseInstanceId;
 
@@ -263,7 +261,7 @@ public class ScroggleFragment extends Fragment {
             setAvailableFromLastMove(mLastSmall);
             setValidNextMove1(mLastLarge, mLastSmall);
         } else {
-            setAvailPhaseTwo(mLastSmall);
+            setAvailablePhase2(mLastSmall);
             setValidNextMove2(mLastLarge, mLastSmall);
         }
     }
@@ -385,7 +383,7 @@ public class ScroggleFragment extends Fragment {
                         smallTile.animate();
                         if (phase == 1) {
                             if (isValidMove(smallTile)) {
-                                if (!isChosen(smallTile)) {
+                                if (!smallTile.getIsChosen()) {
                                     smallTile.setChosen(true);
                                     inner.setBackground(getResources().getDrawable(R.drawable.letter_green));
                                     formWord(String.valueOf(smallTile.getLetter()), wordLarge, wordSmall);
@@ -405,7 +403,7 @@ public class ScroggleFragment extends Fragment {
                         } else {
                             setValidNextMove2(mLastLarge, mLastSmall);
                             if (isValidPhase2Move(smallTile)) {
-                                if (!isChosen(smallTile)) {
+                                if (!smallTile.getIsChosen()) {
                                     smallTile.setChosen(true);
                                     appendLetterPhase2(smallTile.getLetter(), wordLarge, wordSmall);
                                     inner.setBackground(getResources().getDrawable(R.drawable.letter_red));
@@ -481,16 +479,35 @@ public class ScroggleFragment extends Fragment {
                                                 } else {
                                                     innerButton.setTextColor(getResources().getColor(R.color.black_color));
                                                 }
-
-
+//                                                otherTile.setChosen(false);
+////                                                phase1Word = deleteLastChar(formedWords.get(wordLarge));
+//
+//                                                phase1Word = deleteLastChar(formedWords.get(wordLarge));
+//                                                formedWords.put(wordLarge, phase1Word);
+//                                                innerButton.setBackground(getResources().getDrawable(R.drawable.letter_background));
+//                                                innerButton.setTextColor(getResources().getColor(R.color.black_color));
+////                                                ArrayList<Integer> list = smallIdMap1.get(wordLarge);
+////                                                for (Integer i : list) {
+////                                                    if (i == small) {
+////                                                        list.remove(i);
+////                                                    }
+////                                                }
+//                                                smallIdMap1.get(wordLarge).remove(small);
                                             }
 
+                                                otherTile.animate();
+                                                smallIdMap1.get(wordLarge).clear();
+
+
                                         }
+                                        displayAlert("Not a valid word!");
+                                        mLastSmall = -1;
                                         setValidNextMove1(mLastLarge, mLastSmall);
                                     }
                                     vibrator.vibrate(20);
 
                                 } else {
+                                    displayAlert("Please choose a word with at least 3 letters!");
                                     setValidNextMove1(mLastLarge, mLastSmall);
                                     formedWordsScores1[wordLarge] = 0;
                                 }
@@ -577,34 +594,25 @@ public class ScroggleFragment extends Fragment {
     public void formWord(String letter, int large, int small) {
         if (large == mLastLarge) {
             phase1Word = phase1Word.concat(letter);
-            if (formedWords != null) {
+            if (formedWords != null && formedWords.get(large) != null) {
                 if (phase1Word.length() == 1) {
                     phase1Word = formedWords.get(large).concat(phase1Word);
                 }
-                formedWords.put(large, phase1Word);
-            } else {
-                formedWords.put(large, phase1Word);
             }
-            if (smallIdMap1.get(large) == null) {
-                smallIdMap1.put(large, new ArrayList<>(Arrays.asList(small)));
-            } else {
-                ArrayList<Integer> smalls = smallIdMap1.get(large);
-                smalls.add(small);
-            }
+
         } else {
             phase1Word = "".concat(letter);
             if (formedWords != null && formedWords.get(large) != null) {
                 phase1Word = formedWords.get(large).concat(phase1Word);
-                formedWords.put(large, phase1Word);
-            } else {
-                formedWords.put(large, phase1Word);
+
             }
-            if (smallIdMap1.get(large) == null) {
-                smallIdMap1.put(large, new ArrayList<Integer>(Arrays.asList(small)));
-            } else {
-                ArrayList<Integer> smalls = smallIdMap1.get(large);
-                smalls.add(small);
-            }
+        }
+        formedWords.put(large, phase1Word);
+        if (smallIdMap1.get(large) == null) {
+            smallIdMap1.put(large, new ArrayList<Integer>(Arrays.asList(small)));
+        } else {
+            ArrayList<Integer> smalls = smallIdMap1.get(large);
+            smalls.add(small);
         }
     }
 
@@ -628,12 +636,25 @@ public class ScroggleFragment extends Fragment {
         }
     }
 
+    private void displayAlert(String content) {
+        LayoutInflater inflater = getActivity().getLayoutInflater();
+        View layout = inflater.inflate(R.layout.mytoast, (ViewGroup) getView().findViewById(R.id.container));
+
+        TextView text = (TextView) layout.findViewById(R.id.text);
+
+        text.setText(content);
+
+        Toast toast = new Toast(getActivity().getApplicationContext());
+        toast.setGravity(Gravity.CENTER_VERTICAL, 0, 0);
+        toast.setDuration(Toast.LENGTH_LONG);
+        toast.setView(layout);
+        toast.show();
+    }
 
 
     public void displayWord() {
         LayoutInflater inflater = getActivity().getLayoutInflater();
-        View layout = inflater.inflate(R.layout.mytoast,
-                (ViewGroup) getView().findViewById(R.id.container));
+        View layout = inflater.inflate(R.layout.mytoast, (ViewGroup) getView().findViewById(R.id.container));
 
         TextView text = (TextView) layout.findViewById(R.id.text);
         if(phase == 1) {
@@ -653,9 +674,10 @@ public class ScroggleFragment extends Fragment {
         mHandler.postDelayed(new Runnable() {
             @Override
             public void run() {
+                if (getActivity() == null) {
+                    return;
+                }
                 if (phase == 2) {
-                    if (getActivity() == null) return;
-                    setValidNextMove2(mLastLarge, mLastSmall);
                     if (phase2Word.length() >= 3) {
                         if (!Arrays.asList(phase2Words).contains(phase2Word)) {
                             boolean wordDetected = wordDetect(phase2Word);
@@ -666,8 +688,6 @@ public class ScroggleFragment extends Fragment {
                         }
                     }
                 } else {
-                    if (getActivity() == null) return;
-                    setValidNextMove1(mLastLarge, mLastSmall);
                     if (formedWords.get(mLastLarge) != null) {
                         if (formedWords.get(mLastLarge).length() >= 3) {
                             boolean wordDetected = wordDetect(phase1Word);
@@ -710,7 +730,7 @@ public class ScroggleFragment extends Fragment {
         mPhase2Points = Integer.parseInt(fields[index++]);
         ((ScroggleActivity) getActivity()).setPhase2Points(mPhase2Points);
         timeRemain = Long.parseLong(fields[index++]);
-        this.setTime(timeRemain);
+        this.setRemaningTime(timeRemain);
         phase = Integer.parseInt(fields[index++]);
         this.setPhase(phase);
         for (int large = 0; large < 9; large++) {
@@ -791,9 +811,6 @@ public class ScroggleFragment extends Fragment {
         }
     }
 
-    public boolean isChosen(ScroggleTile tile) {
-        return tile.getIsChosen();
-    }
 
     public boolean wordDetect(String word) {
         String key = word.toLowerCase().substring(0, 3);
@@ -807,7 +824,7 @@ public class ScroggleFragment extends Fragment {
         this.phase = phase;
     }
 
-    public void setTime(long time) {
+    public void setRemaningTime(long time) {
         this.timeRemain = time;
     }
 
@@ -946,7 +963,7 @@ public class ScroggleFragment extends Fragment {
         }
     }
 
-    private void setAvailPhaseTwo(int small) {
+    private void setAvailablePhase2(int small) {
         phase2Available.clear();
         if (small != -1) {
             for (int dest = 0; dest < 9; dest++) {

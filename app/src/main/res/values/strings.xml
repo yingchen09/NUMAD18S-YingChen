@@ -121,4 +121,6 @@
     <string name="highest">Highest!</string>
     <string name="username">User</string>
     <string name="congrats">Congrats!</string>
+    <string name="submit">Submit</string>
+    <string name="points">points</string>
 </resources>
